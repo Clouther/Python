@@ -1,0 +1,70 @@
+# import needed libraries 
+
+import requests
+import nltk
+import pandas as pd
+import matplotlib.pyplot as plt
+from string import punctuation
+from nltk.probability import FreqDist
+
+# Download tokenization and stopwords from natural language toolkit
+
+nltk.download("punkt")
+nltk.download("stopwords")
+
+# Getting text from url
+response = requests.get('https://raw.githubusercontent.com/MicrosoftLearning/AI-Introduction/master/files/Moon.txt')
+Moontext = response.text
+print(Moontext)
+
+# 'Normalize' text by removing punctuation and digits.
+
+# remove numeric digits
+txt = ''.join(c for c in Moontext if not c.isdigit())
+
+# remove punctuation and make lower case
+txt = ''.join(c for c in txt if c not in punctuation).lower()
+
+# print the normalized text
+print (txt)
+
+# Tokenize the text into individual words
+words = nltk.tokenize.word_tokenize(txt)
+
+# Get the frequency distribution of the words into a data frame
+fdist = FreqDist(words)
+count_frame = pd.DataFrame(fdist, index = [0]).T
+count_frame.columns = ['Count'] 
+print (count_frame)
+
+counts = count_frame.sort_values('Count', ascending = False)
+fig = plt.figure(figsize=(16, 9))
+ax = fig.gca()    
+counts['Count'][:60].plot(kind = 'bar', ax = ax, color="blue")
+ax.set_title('Frequency of the most common words')
+ax.set_ylabel('Frequency of word')
+ax.set_xlabel('Word')
+plt.show()
+
+# remove stopwords - aka words that carry little meaning: the, a, etc.
+
+from nltk.corpus import stopwords
+txt = ' '.join([word for word in txt.split() if word not in (stopwords.words('english'))])
+print("\n")
+print(txt)
+
+# Get the frequency distribution of the remaining words
+words = nltk.tokenize.word_tokenize(txt)
+fdist = FreqDist(words)
+count_frame = pd.DataFrame(fdist, index =[0]).T
+count_frame.columns = ['Count']
+
+# Plot the frequency of the top 25 words
+counts = count_frame.sort_values('Count', ascending = False)
+fig = plt.figure(figsize=(16, 9))
+ax = fig.gca()    
+counts['Count'][:25].plot(kind = 'bar', ax = ax, color="blue")
+ax.set_title('Frequency of the most common words')
+ax.set_ylabel('Frequency of word')
+ax.set_xlabel('Word')
+plt.show()
