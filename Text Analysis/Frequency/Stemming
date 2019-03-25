@@ -1,4 +1,4 @@
-# Looking at frequency of words, after stemming aka grouping like words together.
+# Looking at frequency of words, after we look at stemming aka grouping like words together.
 
 import requests
 import nltk
