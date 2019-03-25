@@ -1,0 +1,60 @@
+# Looking at frequency of words, after stemming aka grouping like words together.
+
+import requests
+import nltk
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+from nltk.stem.porter import PorterStemmer
+from string import punctuation
+
+
+nltk.download("stopwords")
+
+doc1 = requests.get('https://raw.githubusercontent.com/MicrosoftLearning/AI-Introduction/master/files/Inaugural.txt')
+doc1text = doc1.text
+txt1 = ''.join(c for c in doc1text if not c.isdigit())
+txt1 = ''.join(c for c in txt1 if c not in punctuation).lower()
+txt1 = ' '.join([word for word in txt1.split() if word not in (stopwords.words('english'))])
+
+# Get Frequency distribution
+words = nltk.tokenize.word_tokenize(doc1text)
+fdist = FreqDist(words)
+count_frame = pd.DataFrame(fdist, index =[0]).T
+count_frame.columns = ['Count']
+
+# Plot frequency
+counts = count_frame.sort_values('Count', ascending = False)
+fig = plt.figure(figsize=(16, 10))
+ax = fig.gca()    
+counts['Count'][:25].plot(kind = 'bar', ax = ax, color="blue")
+ax.set_title('Frequency of the most common words')
+ax.set_ylabel('Frequency of word')
+ax.set_xlabel('Word')
+plt.show()
+
+# Get the word stems
+ps = PorterStemmer()
+stems = [ps.stem(word) for word in words]
+
+# Get Frequency distribution
+fdist = FreqDist(stems)
+count_frame = pd.DataFrame(fdist, index =[0]).T
+count_frame.columns = ['Count']
+
+# Plot frequency
+counts = count_frame.sort_values('Count', ascending = False)
+fig = plt.figure(figsize=(16, 9))
+ax = fig.gca()    
+counts['Count'][:25].plot(kind = 'bar', ax = ax, color="blue")
+ax.set_title('Frequency of the most common words')
+ax.set_ylabel('Frequency of word')
+ax.set_xlabel('Word')
+plt.show()
+
+
+
+
+
