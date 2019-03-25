@@ -3,8 +3,11 @@
 # important libraries that will be used 
 import requests
 import math
+from nltk.corpus import stopwords
 from textblob import TextBlob as tb
 from string import punctuation
+
+nltk.download("stopwords")
 
 # Getting doc1
 doc1 = requests.get('https://raw.githubusercontent.com/MicrosoftLearning/AI-Introduction/master/files/Moon.txt')
