@@ -3,6 +3,7 @@
 # important libraries that will be used 
 import requests
 import math
+import nltk
 from nltk.corpus import stopwords
 from textblob import TextBlob as tb
 from string import punctuation
