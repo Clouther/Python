@@ -1,0 +1,61 @@
+# Using Dash to plot stock prices based on input values (stock ticker)
+
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output
+
+import quandl
+import datetime
+
+# Getting the date of today, then converting to string 
+now = datetime.datetime.now() 
+date_time_now = now.strftime("%Y-%m-%d")
+
+quandl.ApiConfig.api_key = 'Insert API Key HERE' 
+
+app = dash.Dash()
+
+app.layout = html.Div(children=[
+    html.Div(children='''
+        Symbol to graph:
+    '''),
+    dcc.Input(id='input', value='', type='text'),
+    html.Div(id='output-graph'),
+])
+
+@app.callback(
+    Output(component_id='output-graph', component_property='children'),
+    [Input(component_id='input', component_property='value')]
+)
+
+# Getting adjusted closing values from Quandl
+def update_value(input_data):
+    data = quandl.get_table('WIKI/PRICES', ticker = input_data, 
+                        qopts = { 'columns': [ 'date', 'adj_close'] }, 
+                        date = { 'gte': '2015-12-28', 'lte': date_time_now }, 
+                        paginate=True)
+
+    # create a new dataframe with 'date' column as index
+    df = data.set_index('date')
+
+
+    # Returning the graph
+    return dcc.Graph(
+            id='example-graph',
+            figure ={
+                'data' : [
+                    {'x': df.index, 'y': df.adj_close, 'type':'line', 'name':input_data},
+                ],
+                'layout' : {
+                   'title': input_data
+                }
+            }
+    )
+    
+if __name__ == '__main__':
+    app.run_server(debug=True)
+
+
+
+
