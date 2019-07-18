@@ -1,0 +1,17 @@
+## Data Cleaning / Processing for ML
+
+# Calculating the amount of NA values per column, and dropping the NA Values
+
+print(df.isna().sum())
+NAColumn_Names = DataFrame.columns[df.isna().any()].tolist()
+
+df.dropna(subset=["Column Names"]) # Dropping a few columns based on their name 
+df.dropna(subset=NAColumn_Names)  # Dropping all columns with NA Values
+
+
+
+
+
+
+
+
