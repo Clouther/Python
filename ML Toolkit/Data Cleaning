@@ -8,6 +8,9 @@ NAColumn_Names = DataFrame.columns[df.isna().any()].tolist()
 df.dropna(subset=["Column Names"]) # Dropping a few columns based on their name 
 df.dropna(subset=NAColumn_Names)   # Dropping all columns that contain NA Values
 
+# Replacing missing values with median, mean, etc. 
+
+
 
 
 
