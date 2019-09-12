@@ -1,10 +1,10 @@
 # Data Visulization
-# Using the California Housing data set as the basis
+# Using the California Housing data set as the basis: https://github.com/ageron/handson-ml/tree/master/datasets/housing
 
 import matplotlib.pyplot as plt
 housing.plot(kind="scatter", x="longitude", y="latitude")
 
-# Deeper visulizations  based on colors and bar
+# Deeper visulizations  based on colors and bar. S represents the radius of the circle and c represents the price
 
 housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.4, s=housing["populating"]/100, label="population".
 c = "median_house_value", c="median_house_value", cmap=plt.get_cmap("jet"), colorbar=True)
@@ -15,7 +15,7 @@ plt.legend()
 corr_matrix = housing.corr()
 corr_matrix["median_house_value"].sort_values(ascending=False)
 
-# Plotting using Pandas ScatterMatrix
+# Plotting using Pandas Scatter Matrix (Better visual can be acheived using the Seaborn Package)
 
 from pandas.tools.plotting import scatter_matrix
 attributes = ["median_house_value", "median_income", "total_rooms","housing_median_age"]
