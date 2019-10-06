@@ -2,6 +2,13 @@
 # Using the California Housing data set as the basis: https://github.com/ageron/handson-ml/tree/master/datasets/housing
 
 import matplotlib.pyplot as plt
+
+# Check out general distribution of each feature
+
+housing.hist(bins=50, figsize(20,40))
+plt.show()
+
+housing = pd.read_csv("housing.csv")
 housing.plot(kind="scatter", x="longitude", y="latitude")
 
 # Deeper visulizations  based on colors and bar. S represents the radius of the circle and c represents the price
