@@ -27,7 +27,7 @@ housing.plot(kind="scatter", x="median_income", y="median_house_value", alpha=0.
 
 import seaborn as sns
 import matplotlib.pyplot as plt
-df = sns.load_dataset('iris')
+df = sns.load_dataset('housing')
 
 sns.pairplot(df)
 sns.plt.show()
