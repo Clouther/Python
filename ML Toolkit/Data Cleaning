@@ -1,6 +1,16 @@
 ## Data Cleaning / Processing for ML
 
+# Using the general
+
+# Splitting training and testing data using Scikit-Learn
+from sklearn.model_selection import train_test_split
+
+tran
+
 # Calculating the amount of NA values per column, and dropping the NA Values
+
+
+
 
 print(df.isna().sum())
 NAColumn_Names = DataFrame.columns[df.isna().any()].tolist()
