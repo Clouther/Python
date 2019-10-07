@@ -1,16 +1,21 @@
 ## Data Cleaning / Processing for ML
 
-# Using the general
+# Splitting training and testing data using Scikit-Learn (80/20 split)
 
-# Splitting training and testing data using Scikit-Learn
 from sklearn.model_selection import train_test_split
+train_set, test_set = train_test_split(DataFrame, test_size=0.2, random_state=42) # Pick any randomstate
 
-tran
+# Stratified Sampling ("It is important to havea sufficient number of instances in your dataset for each stratum, or else the estimateof the stratum’s importance may be biased. This means that you should not have toomany strata, and each stratum should be large enough", HoML- 2nd Edition)
+
+from sklearn.model_selection import StratifiedShuffleSplit
+
+for train_index, test_index in split.split(housing, DataFrame["Feature"]):      # Determine on which feature you want to do Stratified Sampling
+strat_train_set = housing.loc[train_index]
+strat_test_set = housing.loc[test_index]
+
+
 
 # Calculating the amount of NA values per column, and dropping the NA Values
-
-
-
 
 print(df.isna().sum())
 NAColumn_Names = DataFrame.columns[df.isna().any()].tolist()
