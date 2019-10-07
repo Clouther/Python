@@ -13,8 +13,6 @@ for train_index, test_index in split.split(housing, DataFrame["Feature"]):      
 strat_train_set = housing.loc[train_index]
 strat_test_set = housing.loc[test_index]
 
-
-
 # Calculating the amount of NA values per column, and dropping the NA Values
 
 print(df.isna().sum())
@@ -23,11 +21,25 @@ NAColumn_Names = DataFrame.columns[df.isna().any()].tolist()
 df.dropna(subset=["Column Names"]) # Dropping a few columns based on their name 
 df.dropna(subset=NAColumn_Names)   # Dropping all columns that contain NA Values
 
-# Replacing missing values with median, mean, etc. 
+# Replacing missing values with median, mean, etc (using fillna) 
 
+df["Column Names"].fillna(median, inplace=True)
 
+# Replacing missing values with median, mean, etc (using Scikit-Learn's Imputer) only works on numerical features (drop categorical)
 
+from sklearn.preprocessing import Imputer
+imputer = Imputer(strategy=median)     
 
+df_numerical = df.drop("categorical variables",axis=1) # Dropping any categorical variables
+
+imputer.fit(df_numerical) # Computing the median of each numerical attribute
+imputer.statistics_ # Checking the median values to ensure that everthing is working properly
+
+X = imputer.transform(df_numerical) # Transforms the missing values into their median column values NumPy Array 
+
+Training_Set = pd.DataFrame(X, columns=df_numerical.columns)
+
+# Handling Categorical and Text Attributes
 
 
 
