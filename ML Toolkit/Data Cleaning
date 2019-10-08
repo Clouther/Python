@@ -39,9 +39,15 @@ X = imputer.transform(df_numerical) # Transforms the missing values into their m
 
 Training_Set = pd.DataFrame(X, columns=df_numerical.columns)
 
-# Handling Categorical and Text Attributes
+# Handling Categorical and Text Attributes Using Scikit-Learn's OneHotEncoder
 
+from sklearn.preprocessing import OneHotEncoder
+cat_encoder = OneHotEncoder()
 
+df._get_numeric_data().columns
 
-
+categorical= df.select_dtypes(include=['category', object]).columns
+num_cols = housing._get_numeric_data().columns
+housing[num_cols]
+housing.info()
 
