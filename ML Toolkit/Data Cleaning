@@ -45,7 +45,13 @@ Training_Set = pd.DataFrame(X, columns=df_numerical.columns)
 from sklearn.preprocessing import OneHotEncoder
 cat_encoder = OneHotEncoder()
 
-categorical= df.select_dtypes(include=['category', object]).columns
+categorical = df.select_dtypes(include=['category', object]).columns
+
+cat_1hot = cat_encoder.fit_transform(categorical)  # 1hot encoding the categorical varibles. Creates a SciPy sparse matrix. convert to NumPy array using toarray()
 
 
+# Feature Scaling, Min-Max and Normalization (z)
+
+MinMax = df_numerical.MinMaxScaler(
+Normalization = df_numerical.StandardScaler(
 
