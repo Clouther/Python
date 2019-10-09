@@ -50,7 +50,7 @@ cat_1hot = cat_encoder.fit_transform(categorical)  # 1hot encoding the categoric
 # Feature Scaling, Min-Max and Normalization (z)
 
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.precprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler
 
 MinMax = MinMaxScaler()
 ZScaling = StandardScaler()
@@ -60,6 +60,8 @@ ZNormalization = ZScaling.fit_transform(df_numerical)
 
 # Transformation Pipeline using Pipeline and ColumnTransformer (bring the numerical transformations together in one sequence
 
+from sklearn.pipeline import Pipeline
+
 Numerical_Pipeline = Pipeline([
     ('imputer', Imputer(strategy="median")),
     ('std_scaler', StandardScaler())
@@ -67,7 +69,7 @@ Numerical_Pipeline = Pipeline([
      
 df_numerical_transform = Numerical_pipeline.fit_transform(df_numerical) # doing the numerical transformations at once
 
-form sklearn.compose import ColumnTransformer
+from sklearn.compose import ColumnTransformer
 
 num_attribs = list(df_numerical)
 cat_attribs = list(categorical)
