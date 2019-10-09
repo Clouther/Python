@@ -45,7 +45,12 @@ Training_Set = pd.DataFrame(X, columns=df_numerical.columns)
 from sklearn.preprocessing import OneHotEncoder
 cat_encoder = OneHotEncoder()
 
-cat_1hot = cat_encoder.fit_transform(categorical)  # 1hot encoding the categorical varibles. Creates a SciPy sparse matrix. convert to NumPy array using toarray()
+cat_1hot = cat_encoder.fit_transform(df[categorical])  # 1hot encoding the categorical varibles. Creates a SciPy sparse matrix. convert to NumPy array using toarray()
+
+cat_1hot_array = cat_1hot.toarray()
+1hot_columns = cat_encoder.categories_  # Getting the names of the 1hot categories
+
+pd.DataFrame(cat_1hot_array, columns = 1hot_columns)  # Transforming into dataframe
 
 # Feature Scaling, Min-Max and Normalization (z)
 
@@ -79,6 +84,5 @@ full_pipeline = ColumnTransformer([
        ("cat", OneHotEncoder(), cat_attribs),
     ])
     
-data_prepared = full_pipeline.fit_transform(df)
-
+data_prepared = pd.DataFrame(full_pipeline.fit_transform(df), columns=df.columns)
 
