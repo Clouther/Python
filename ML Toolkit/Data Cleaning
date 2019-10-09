@@ -28,9 +28,9 @@ df["Column Names"].fillna(median, inplace=True)
 # Replacing missing values with median, mean, etc (using Scikit-Learn's Imputer) only works on numerical features (drop categorical)
 
 from sklearn.preprocessing import Imputer
-imputer = Imputer(strategy=median)     
+imputer = Imputer(strategy="median")     
 
-categorical= df.select_dtypes(include=['category', object]).columns
+categorical = df.select_dtypes(include=['category', object]).columns
 df_numerical = df.drop(categorical,axis=1) # Dropping any categorical variables
 
 imputer.fit(df_numerical) # Computing the median of each numerical attribute
@@ -45,8 +45,6 @@ Training_Set = pd.DataFrame(X, columns=df_numerical.columns)
 from sklearn.preprocessing import OneHotEncoder
 cat_encoder = OneHotEncoder()
 
-categorical = df.select_dtypes(include=['category', object]).columns
-
 cat_1hot = cat_encoder.fit_transform(categorical)  # 1hot encoding the categorical varibles. Creates a SciPy sparse matrix. convert to NumPy array using toarray()
 
 # Feature Scaling, Min-Max and Normalization (z)
@@ -60,7 +58,25 @@ ZScaling = StandardScaler()
 MinMaxScaling = MinMax.fit_transform(df_numerical)
 ZNormalization = ZScaling.fit_transform(df_numerical)
 
-# Transformation Pipeline using Pipeline and ColumnTransformer
+# Transformation Pipeline using Pipeline and ColumnTransformer (bring the numerical transformations together in one sequence
 
-pipeline = COlumnTransformer([
-    ("num",
+Numerical_Pipeline = Pipeline([
+    ('imputer', Imputer(strategy="median")),
+    ('std_scaler', StandardScaler())
+     ])
+     
+df_numerical_transform = Numerical_pipeline.fit_transform(df_numerical) # doing the numerical transformations at once
+
+form sklearn.compose import ColumnTransformer
+
+num_attribs = list(df_numerical)
+cat_attribs = list(categorical)
+
+full_pipeline = ColumnTransformer([ 
+       ("num", Numerical_Pipeline, num_attribs),
+       ("cat", OneHotEncoder(), cat_attribs),
+    ])
+    
+data_prepared = full_pipeline.fit_transform(df)
+
+
