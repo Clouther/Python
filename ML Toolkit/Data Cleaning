@@ -31,19 +31,20 @@ from sklearn.preprocessing import Imputer
 imputer = Imputer(strategy="median")     
 
 categorical = df.select_dtypes(include=['category', object]).columns
-df_numerical = df.drop(categorical,axis=1) # Dropping any categorical variables
+df_numerical = df.drop(categorical,axis=1) # Dropping any categorical variables  can also do select_dtypes(include=[np.number])
 
 imputer.fit(df_numerical) # Computing the median of each numerical attribute
 imputer.statistics_ # Checking the median values to ensure that everthing is working properly
 
 X = imputer.transform(df_numerical) # Transforms the missing values into their median column values NumPy Array 
 
-Training_Set = pd.DataFrame(X, columns=df_numerical.columns)
+Training_Set = pd.DataFrame(X, columns=df_numerical.columns, index=df.index)
 
 # Handling Categorical and Text Attributes Using Scikit-Learn's OneHotEncoder
 
 from sklearn.preprocessing import OneHotEncoder
 cat_encoder = OneHotEncoder()
+
 
 cat_1hot = cat_encoder.fit_transform(df[categorical])  # 1hot encoding the categorical varibles. Creates a SciPy sparse matrix. convert to NumPy array using toarray()
 
