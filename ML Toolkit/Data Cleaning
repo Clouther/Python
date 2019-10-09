@@ -52,15 +52,15 @@ cat_1hot = cat_encoder.fit_transform(categorical)  # 1hot encoding the categoric
 # Feature Scaling, Min-Max and Normalization (z)
 
 from sklearn.preprocessing import MinMaxScaler
-
-MinMax = df_numerical.MinMaxScaler(
-Normalization = df_numerical.StandardScaler(
-
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.precprocessing import StandardScaler
 
 MinMax = MinMaxScaler()
-Normalization = MinMax.fit_transform(housing[num_cols])
-np.asarray(Normalization)
+ZScaling = StandardScaler()
 
-num_cols
-housing_num
+MinMaxScaling = MinMax.fit_transform(df_numerical)
+ZNormalization = ZScaling.fit_transform(df_numerical)
+
+# Transformation Pipeline using Pipeline and ColumnTransformer
+
+pipeline = COlumnTransformer([
+    ("num",
