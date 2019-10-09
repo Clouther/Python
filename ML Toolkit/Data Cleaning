@@ -50,7 +50,7 @@ cat_1hot = cat_encoder.fit_transform(categorical)  # 1hot encoding the categoric
 # Feature Scaling, Min-Max and Normalization (z)
 
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
 
 MinMax = MinMaxScaler()
 ZScaling = StandardScaler()
