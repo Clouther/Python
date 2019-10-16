@@ -1,41 +1,24 @@
-## Email Macros for VBA
+## Dash Web Applications 
 
-There are 2 different types of excel macros provided that will allow the user to send out emails via outlook
+Creating Dash applications that will use various APIs
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-Prerequisites
+The first Dash Application uses Quandl to display stock information from any company:
 
-What things you need to install the software and how to install them
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Give examples
+Prerequisites Requires a reference to Microsoft XML, v6.0, Scripting Library, and Scripting Runtime Function: https://gist.github.com/cwg999/51bafc6cc5f28308ca219e0b43b1aff2#file-encodeuricomponent-vb Parse Json: https://github.com/VBA-tools/VBA-JSON
 
-Installing
+Install both the Json parser and the EncodeUri function in vbi
 
-A step by step series of examples that tell you how to get a development env running
+Function Documentation: Function 1: Get_Distance(Origin As String, Destination As String) Function 2: Get_Duration(Origin As String, Destination As String) As Double
 
-Say what the step will be
+Origin and Destination are respective cells that contain the addresses you want to use.
 
-Give the example
+Examples: Mar-a-Lago: 1100 S Ocean Blvd, Palm Beach, FL 33480, United States Whitehouse: 1600 Pennsylvania Avenue NW Washington, DC 20500, United States
 
-And repeat
+Get_Distance("1100 S Ocean Blvd, Palm Beach, FL 33480, United States","1600 Pennsylvania Avenue NW Washington, DC 20500, United States")
 
-until finished
-
-End with an example of getting some data out of the system or using it for a little demo
-Running the tests
-
-Explain how to run the automated tests for this system
-Break down into end to end tests
-
-Explain what these tests test and why
-
-Give an example
-
-And coding style tests
-
-Explain what these tests test and why
-
-Give an example
+Get_Duration(""1100 S Ocean Blvd, Palm Beach, FL 33480, United States","1600 Pennsylvania Avenue NW Washington, DC 20500, United States")
 
 ## License
 
