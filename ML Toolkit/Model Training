@@ -33,6 +33,56 @@ rmse_scores = np.sqrt(-scores.mean())     # Negative because CV uses a utility f
 joblib.dump(model, "my_saved_model.pkl")  # Saving the model using the pickle format
 joblib.load("my_saved_model.pkl")         # Loading the model
 
+# Using GridSearchCV to find "best" Hyperparameters for our model
 
+from sklearn.model_selection import GridSearchCV
+ 
+param_grid = [                           # Creating a param_grid based on what you want the GridSearch to optimize. Features depend on model that is used.
+        {'n_estimators': [3, 10, 30], 'max_features': [2,4,6,8]},
+        {'boostrap': [False], 'n_estimators': [3,10], 'max_features': [2,3,4]},
+        ]
+
+forest_reg = RandomForestRegressor()
+
+grid_search = GridSearchCV(forest_reg, param_grid, cv=5,
+                           scoring='neg_mean_squared_error',
+                           return_train_score=True)
+
+grid_search.fit(prepared_training_data, training_labels)
+
+# Using RandomizedSearchCV to find "best" Hyperparameters for our model (RandomForestRegressor in example)
+
+from sklearn.model_selection import RandomizedSearchCV    
+
+rf = RandomForestRegressor()
+rf.get_params()  # Getting a list of params that we can have our RandomizedSearchCV "optimize"
+
+# Setting up our parameters for our RandomizedSearchCV
+n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
+max_features = ['auto', 'sqrt']
+max_depth = [int(x) for x in np.linspace(10, 110, num = 11)]
+max_depth.append(None)
+min_samples_split = [2, 5, 10]
+min_samples_leaf = [1, 2, 4]
+bootstrap = [True, False]
+
+random_grid = {'n_estimators': n_estimators,
+               'max_features': max_features,
+               'max_depth': max_depth,
+               'min_samples_split': min_samples_split,
+               'min_samples_leaf': min_samples_leaf,
+               'bootstrap': bootstrap}
+
+
+Random_search = RandomizedSearchCV(forest_reg, random_grid , n_iter=4, cv =5, 
+                                   scoring='neg_mean_squared_error',
+                                   random_state=23)
+
+Random_search.fit(prepared_training_data, training_labels)
+
+# Getting the feature importance
+
+feature_random_importnace = Random_search.best_estimator_.feature_importances_
+feature_random_importnace
 
 
