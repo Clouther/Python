@@ -29,9 +29,9 @@ from sklearn.externals import joblib   # Will be used to store our model
 scores = cross_val_score(model, prepared_training_data, training_labels,
                          scoring = "neg_mean_squared_error", cv=10
                          )
-rmse_scores = np.sqrt(-scores.mean())
+rmse_scores = np.sqrt(-scores.mean())     # Negative because CV uses a utility function, scoring is the opposite
 joblib.dump(model, "my_saved_model.pkl")  # Saving the model using the pickle format
-
+joblib.load("my_saved_model.pkl")         # Loading the model
 
 
 
