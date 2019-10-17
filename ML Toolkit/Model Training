@@ -1,2 +1,38 @@
-# Basic example from HOML (2nd edition) using Linear Regression 
+# Examples of different models using Scikit-Learn - prepared data ~ data that has been preprocessed and cleaned
+
+# Linear Regression using Scikit-Learn (evaluating model)
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+lin_reg = LinearRegression()          
+lin_reg.fit(prepared_training_data, training_labels)    # Fit the linear regression model on the prepared data 
+lin_reg_predictions = lin_reg.predict(prepared_test_data)
+lin_mse = mean_squared_error(testing_labels, prepared_test_data)   # Getting the mean squared error
+lin_rmse = np.sqrt(lin_mse)   # Getting the root mean squared error 
+
+# Using a Decision Tree Regression model (same procedure for models)
+
+from sklearn.linear_model import DecisionTreeRegressor
+
+tree_reg = DecisionTreeRegressor()
+tree_reg.fit(prepared_training_data, training_labels)   # Fit the DecisionTree model on the prepared data
+tree_reg_predictions = tree_reg.predict(prepared_test_data)
+tree_mse = mean_squared_error(testing_labels, prepared_test_data)  # Getting the mean squared error
+tree_rmse = np.sqrt(tree_mse)  # Getting the root mean squared error
+
+# Using K-fold Cross-Validation to evaluate a model of our choosing
+
+from sklearn.model selection import cross_val_score
+from sklearn.externals import joblib   # Will be used to store our model
+
+scores = cross_val_score(model, prepared_training_data, training_labels,
+                         scoring = "neg_mean_squared_error", cv=10
+                         )
+rmse_scores = np.sqrt(-scores.mean())
+joblib.dump(model, "my_saved_model.pkl")  # Saving the model using the pickle format
+
+
+
+
 
