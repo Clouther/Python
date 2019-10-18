@@ -52,6 +52,9 @@ grid_search.fit(prepared_training_data, training_labels)
 
 grid_search.best_params_  # Getting the best parameteres
 
+feature_importances = grid_search.best_estimator_.feature_importances_  # Getting the most important features
+feature_importances
+
 # Using RandomizedSearchCV to find "best" Hyperparameters for our model (RandomForestRegressor in example)
 
 from sklearn.model_selection import RandomizedSearchCV    
