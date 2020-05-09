@@ -1,46 +1,4 @@
-{
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "name": "Homework - Fashion MNIST (Mathieu Cloutier).ipynb",
-      "provenance": [],
-      "collapsed_sections": []
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    }
-  },
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "0AeHH9cLNMbA",
-        "colab_type": "text"
-      },
-      "source": [
-        "### Homework\n",
-        "Write the code outright - **Do not copy/paste from the example**\n",
-        "#### Instructions\n",
-        "1. Load the Fashion MNIST Dataset from the [keras documentation](https://keras.io/datasets/). **Use the Tensorflow version of Keras rather than the standalone Keras**\n",
-        "2. Visualize the data\n",
-        "3. Prepare the data - split, normalize and reshape\n",
-        "4. Train a model using using keras' functional API\n",
-        "5. Display the model training history in ```matplotlib```"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "metadata": {
-        "id": "MCko_Vh6NCsk",
-        "colab_type": "code",
-        "outputId": "620446fd-779a-4b1c-cc43-2f34bf8801e8",
-        "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 35
-        }
-      },
+
       "source": [
         "1. # Load the Fashion MNIST Dataset from the keras documentation. Use the Tensorflow version of Keras rather than the standalone Keras\n",
         "\n",
