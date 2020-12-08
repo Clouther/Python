@@ -1,1 +1,3 @@
-Readme
+Better Readme
+
+Moving courses around
