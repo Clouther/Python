@@ -1,0 +1,16 @@
+@app.route('/get_stock_val/<ticker>', methods=['GET', 'POST'])
+def get_stock_value(ticker):
+    if request.method == "GET":
+        bl = create_business_logic()
+        prediction = bl.do_predictions_for(ticker)[-1]
+
+        if prediction == 1:
+            goal = "Buy"
+        else:
+            goal = "Sell"
+    elif request.method == "POST":
+        text = request.form['text']
+        processed_text = text.upper()
+        return redirect(f"/get_stock_val/{processed_text}", code=302)
+
+    return goal
